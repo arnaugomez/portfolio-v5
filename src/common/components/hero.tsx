@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import gsap from "gsap";
+import clsx from "clsx/lite";
+
+function timeoutPromise(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const texts = ["Bringing AI", "to your web", "and mobile", "applications"];
 
@@ -31,6 +37,7 @@ export function Hero() {
           <TextLine
             key={index}
             text={text}
+            index={index}
             height={height}
             isReverse={Boolean(index % 2)}
           />
@@ -42,30 +49,77 @@ export function Hero() {
 
 interface TextLineProps {
   text: string;
+  index: number;
   height: number;
   isReverse?: boolean;
 }
 
-function TextLine({ text, height, isReverse }: TextLineProps) {
+function TextLine({ text, index, height, isReverse }: TextLineProps) {
   const factor = isReverse ? -1 : 1;
+  const textRef = useRef<HTMLDivElement>(null);
+  const [showText, setShowText] = useState(false);
+  const [showSecondaryText, setShowSecondaryText] = useState(false);
+
+  const animation = useCallback(async () => {
+    if (textRef.current) {
+      const chars = textRef.current.children;
+      timeoutPromise(2000).then(() => setShowSecondaryText(true));
+      await timeoutPromise(500 * index);
+      setShowText(true);
+      gsap.fromTo(
+        chars,
+        { y: "100%" },
+        {
+          y: "0%",
+          stagger: 0.05,
+          duration: 0.5,
+          ease: "power2.out",
+        }
+      );
+    }
+  }, [index]);
+
+  useEffect(() => {
+    animation();
+  }, [animation]);
+
   return (
     <div
       style={{ transform: `translateX(${height * factor}px)` }}
       className="relative whitespace-nowrap w-fit leading-none font-light text-fluid"
     >
-      <div className="absolute whitespace-nowrap right-full w-fit text-slate-200 px-1">
+      <div
+        className={clsx(
+          showSecondaryText ? "opacity-100" : "opacity-0",
+          "absolute duration-1000 transition-opacity whitespace-nowrap right-full w-fit text-slate-200 px-1"
+        )}
+      >
         <div className="absolute whitespace-nowrap right-full w-fit text-slate-200 px-1">
           {text}
         </div>
         {text}
       </div>
-      <div className="absolute whitespace-nowrap left-full w-fit text-slate-200 px-1">
+      <div
+        className={clsx(
+          showSecondaryText ? "opacity-100" : "opacity-0",
+          "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1"
+        )}
+      >
         {text}
         <div className="absolute whitespace-nowrap left-full w-fit text-slate-200 px-1">
           {text}
         </div>
       </div>
-      {text}
+      <div
+        ref={textRef}
+        className={clsx(!showText && "opacity-0", "overflow-hidden")}
+      >
+        {text.split("").map((char, index) => (
+          <span key={index} className="inline-block whitespace-pre">
+            {char}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
