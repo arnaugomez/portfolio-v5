@@ -167,13 +167,18 @@ const dropShadows = [
   "drop-shadow-[0_0_6px_#f472b6]",
   "drop-shadow-[0_0_6px_#fb7185]",
 ];
+
 function BoldText({ children }: PropsWithChildren) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => {
-        return (prev + 1) % classes.length;
+        const random = Math.floor(Math.random() * classes.length);
+        if (random === prev) {
+          return (prev + 1) % classes.length;
+        }
+        return random;
       });
     }, 1500);
 
