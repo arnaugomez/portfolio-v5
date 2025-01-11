@@ -17,8 +17,8 @@ function timeoutPromise(ms: number) {
 
 const texts = [
   "Bringing *AI*",
-  "to your *web*",
-  "and *mobile*",
+  "to your web",
+  "and mobile",
   "applications",
 ].map((text) => ({
   groups: text
@@ -138,9 +138,14 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
         className={clsx(!showText && "opacity-0", "overflow-hidden")}
       >
         {text.groups.map((group, index) => {
-          return (
-            <TextSplit key={index} isBold={group.isBold} text={group.text} />
-          );
+          if (group.isBold) {
+            return (
+              <BoldText key={index}>
+                <TextSplit key={index} text={group.text} />
+              </BoldText>
+            );
+          }
+          return <TextSplit key={index} text={group.text} />;
         })}
       </div>
     </div>
@@ -148,31 +153,47 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
 }
 
 const classes = [
-  "text-violet-500 hover:drop-shadow-[0_0_10px_violet]",
-  "text-violet-600 hover:drop-shadow-[0_0_10px_violet]",
-  "text-violet-700 hover:drop-shadow-[0_0_10px_violet]",
+  "text-violet-500",
+  "text-purple-500",
+  "text-fuchsia-500",
+  "text-pink-500",
+  "text-rose-500",
+];
+
+const dropShadows = [
+  "drop-shadow-[0_0_6px_#a78bfa]",
+  "drop-shadow-[0_0_6px_#c084fc]",
+  "drop-shadow-[0_0_6px_#e879f9]",
+  "drop-shadow-[0_0_6px_#f472b6]",
+  "drop-shadow-[0_0_6px_#fb7185]",
 ];
 function BoldText({ children }: PropsWithChildren) {
-  const [currentClass, setCurrentClass] = useState(classes[0]);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentClass((prevClass) => {
-        const currentIndex = classes.indexOf(prevClass);
-        const nextIndex = (currentIndex + 1) % classes.length;
-        return classes[nextIndex];
+      setIndex((prev) => {
+        return (prev + 1) % classes.length;
       });
-    }, 2000);
+    }, 1500);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <span className={clsx(currentClass, "transition-all ease-in-out duration-1000")}>{children}</span>
+    <span
+      className={clsx(
+        classes[index],
+        dropShadows[index],
+        "transition-all duration-1000"
+      )}
+    >
+      {children}
+    </span>
   );
 }
 
-function TextSplit({ text, isBold }: { text: string; isBold: boolean }) {
+function TextSplit({ text }: { text: string }) {
   return (
     <>
       {text.split("").map((char, index) => (
@@ -180,7 +201,7 @@ function TextSplit({ text, isBold }: { text: string; isBold: boolean }) {
           key={index}
           className="char transition-none whitespace-pre inline-block"
         >
-          {isBold ? <BoldText>{char}</BoldText> : char}
+          {char}
         </span>
       ))}
     </>
