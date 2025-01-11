@@ -5,11 +5,10 @@ import {
   useRef,
   useEffect,
   useCallback,
-  Fragment,
   PropsWithChildren,
 } from "react";
+import { cn } from "@/utils/cn";
 import gsap from "gsap";
-import clsx from "clsx/lite";
 
 function timeoutPromise(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -47,9 +46,9 @@ export function Hero() {
   }, []);
 
   return (
-    <div className="px-4 overflow-hidden">
-      <div className="max-w-screen-xl mx-auto uppercase">
-        <div className="h-16 sm:h"></div>
+    <div className="px-4 sm:px-8 overflow-hidden">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="h-24 sm:h-16"></div>
         {texts.map((text, index) => (
           <TextLine
             key={index}
@@ -109,10 +108,10 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
   return (
     <div
       style={{ transform: `translateX(${height * factor}px)` }}
-      className="relative whitespace-nowrap w-fit leading-none font-light text-fluid text-slate-900"
+      className="relative whitespace-nowrap w-fit leading-none sm:leading-none font-semibold sm:uppercase sm:font-light text-fluid text-slate-900"
     >
       <div
-        className={clsx(
+        className={cn(
           showSecondaryText ? "opacity-100" : "opacity-0",
           "absolute duration-1000 transition-opacity whitespace-nowrap right-full w-fit text-slate-200 px-1"
         )}
@@ -123,7 +122,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
         {plainText}
       </div>
       <div
-        className={clsx(
+        className={cn(
           showSecondaryText ? "opacity-100" : "opacity-0",
           "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1"
         )}
@@ -135,7 +134,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
       </div>
       <div
         ref={textRef}
-        className={clsx(!showText && "opacity-0", "overflow-hidden")}
+        className={cn(!showText && "opacity-0", "overflow-hidden")}
       >
         {text.groups.map((group, index) => {
           if (group.isBold) {
@@ -187,7 +186,7 @@ function BoldText({ children }: PropsWithChildren) {
 
   return (
     <span
-      className={clsx(
+      className={cn(
         classes[index],
         dropShadows[index],
         "transition-all duration-1000"

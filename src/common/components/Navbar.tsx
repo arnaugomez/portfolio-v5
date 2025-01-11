@@ -1,6 +1,6 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/utils/cn";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 // Cards spotlight
 class Spotlight {
@@ -68,7 +68,7 @@ export function Navbar() {
   return (
     <div className="z-30 fixed w-full" ref={ref}>
       <div
-        className={clsx(
+        className={cn(
           "flex items-center w-fit mx-auto px-4 mt-3 py-2 rounded-full bg-slate-200/20 filter backdrop-blur-lg cursor-pointer",
           "before:absolute before:w-20 before:h-20 before:-left-10 before:-top-10 before:bg-slate-400 before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:group-hover:opacity-100 before:z-10 before:blur-[25px]",
           "after:absolute after:w-24 after:h-24 after:-left-12 after:-top-12 after:bg-slate-600 after:rounded-full after:opacity-0 after:pointer-events-none after:transition-opacity after:duration-500 after:translate-x-[var(--mouse-x)] after:translate-y-[var(--mouse-y)] after:hover:opacity-10 after:z-30 after:blur-[25px] overflow-hidden"
