@@ -104,7 +104,7 @@ export function HideContent({ showContent, children }: HideContentProps) {
       className="overflow-hidden transition-all ease-out duration-1000"
       style={{ width: showContent ? `${width}px` : "0" }}
     >
-      <div ref={ref} className="w-fit pl-4">
+      <div ref={ref} className="w-fit pl-3">
         {children}
       </div>
     </div>

@@ -35,25 +35,25 @@ export function Presentation() {
             <div className="h-4"></div>
             <div className="flex space-x-4">
               <a
-                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground size-8"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-slate-300 bg-background text-slate-500 hover:bg-slate-100 hover:text-slate-700 size-8"
                 href="https://github.com/arnaugomez"
               >
                 <span className="sr-only">Github</span>
-                <GithubIcon className="size-4 text-slate-500" />
+                <GithubIcon className="size-4 " />
               </a>
               <a
-                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground size-8"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-slate-300 bg-background text-slate-500 hover:bg-slate-100 hover:text-slate-700 size-8"
                 href="https://www.linkedin.com/in/arnaugomez/"
               >
                 <span className="sr-only">LinkedIn</span>
-                <LinkedinIcon className="size-4 text-slate-500" />
+                <LinkedinIcon className="size-4 " />
               </a>
               <a
-                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground size-8"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-slate-300 bg-background text-slate-500 hover:bg-slate-100 hover:text-slate-700 size-8"
                 href="https://www.youtube.com/@arnau-gomez"
               >
                 <span className="sr-only">YouTube</span>
-                <YoutubeIcon className="size-4 text-slate-500" />
+                <YoutubeIcon className="size-4 " />
               </a>
             </div>
           </div>
