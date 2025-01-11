@@ -152,19 +152,11 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
 }
 
 const classes = [
-  "text-violet-500",
-  "text-purple-500",
-  "text-fuchsia-500",
-  "text-pink-500",
-  "text-rose-500",
-];
-
-const dropShadows = [
-  "drop-shadow-[0_0_6px_#a78bfa]",
-  "drop-shadow-[0_0_6px_#c084fc]",
-  "drop-shadow-[0_0_6px_#e879f9]",
-  "drop-shadow-[0_0_6px_#f472b6]",
-  "drop-shadow-[0_0_6px_#fb7185]",
+  "text-violet-500 drop-shadow-[0_0_6px_#a78bfa]",
+  "text-purple-500 drop-shadow-[0_0_6px_#c084fc]",
+  "text-fuchsia-500 drop-shadow-[0_0_6px_#e879f9]",
+  "text-pink-500 drop-shadow-[0_0_6px_#f472b6]",
+  "text-rose-500 drop-shadow-[0_0_6px_#fb7185]",
 ];
 
 function BoldText({ children }: PropsWithChildren) {
@@ -186,11 +178,8 @@ function BoldText({ children }: PropsWithChildren) {
 
   return (
     <span
-      className={cn(
-        classes[index],
-        dropShadows[index],
-        "transition-all duration-1000"
-      )}
+      style={{ transition: "color 1s, filter 1s" }}
+      className={cn(classes[index])}
     >
       {children}
     </span>
