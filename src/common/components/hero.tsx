@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  Fragment,
+  PropsWithChildren,
+} from "react";
 import gsap from "gsap";
 import clsx from "clsx/lite";
 
@@ -8,17 +15,27 @@ function timeoutPromise(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const texts = ["Bringing AI", "to your web", "and mobile", "applications"];
+const texts = [
+  "Bringing *AI*",
+  "to your *web*",
+  "and *mobile*",
+  "applications",
+].map((text) => ({
+  groups: text
+    .split("*")
+    .filter(Boolean)
+    .map((t, index) => ({
+      text: t,
+      isBold: Boolean(index % 2),
+    })),
+}));
 
 export function Hero() {
   const [height, setHeight] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (ref.current) {
-        setHeight(ref.current.getBoundingClientRect().top);
-      }
+      setHeight(document.body.getBoundingClientRect().top);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -30,9 +47,9 @@ export function Hero() {
   }, []);
 
   return (
-    <div ref={ref} className="px-4 overflow-hidden">
+    <div className="px-4 overflow-hidden">
       <div className="max-w-screen-xl mx-auto uppercase">
-        <div className="h-20"></div>
+        <div className="h-16 sm:h"></div>
         {texts.map((text, index) => (
           <TextLine
             key={index}
@@ -48,45 +65,51 @@ export function Hero() {
 }
 
 interface TextLineProps {
-  text: string;
+  text: (typeof texts)[number];
   index: number;
   height: number;
   isReverse?: boolean;
 }
 
 function TextLine({ text, index, height, isReverse }: TextLineProps) {
+  const hasTriggered = useRef(false);
   const factor = isReverse ? -1 : 1;
   const textRef = useRef<HTMLDivElement>(null);
   const [showText, setShowText] = useState(false);
   const [showSecondaryText, setShowSecondaryText] = useState(false);
 
   const animation = useCallback(async () => {
-    if (textRef.current) {
-      const chars = textRef.current.children;
-      timeoutPromise(2000).then(() => setShowSecondaryText(true));
-      await timeoutPromise(500 * index);
-      setShowText(true);
-      gsap.fromTo(
-        chars,
-        { y: "100%" },
-        {
-          y: "0%",
-          stagger: 0.05,
-          duration: 0.5,
-          ease: "power2.out",
-        }
-      );
-    }
+    if (!textRef.current) return;
+
+    if (hasTriggered.current) return;
+    hasTriggered.current = true;
+
+    const chars = textRef.current.querySelectorAll(".char");
+    timeoutPromise(2000).then(() => setShowSecondaryText(true));
+    await timeoutPromise(500 * index);
+    setShowText(true);
+    gsap.fromTo(
+      chars,
+      { y: "100%" },
+      {
+        y: "0%",
+        stagger: 0.05,
+        duration: 0.5,
+        ease: "power2.out",
+      }
+    );
   }, [index]);
 
   useEffect(() => {
     animation();
   }, [animation]);
 
+  const plainText = text.groups.map((group) => group.text).join("");
+
   return (
     <div
       style={{ transform: `translateX(${height * factor}px)` }}
-      className="relative whitespace-nowrap w-fit leading-none font-light text-fluid"
+      className="relative whitespace-nowrap w-fit leading-none font-light text-fluid text-slate-900"
     >
       <div
         className={clsx(
@@ -95,9 +118,9 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
         )}
       >
         <div className="absolute whitespace-nowrap right-full w-fit text-slate-200 px-1">
-          {text}
+          {plainText}
         </div>
-        {text}
+        {plainText}
       </div>
       <div
         className={clsx(
@@ -105,21 +128,61 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
           "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1"
         )}
       >
-        {text}
+        {plainText}
         <div className="absolute whitespace-nowrap left-full w-fit text-slate-200 px-1">
-          {text}
+          {plainText}
         </div>
       </div>
       <div
         ref={textRef}
         className={clsx(!showText && "opacity-0", "overflow-hidden")}
       >
-        {text.split("").map((char, index) => (
-          <span key={index} className="inline-block whitespace-pre">
-            {char}
-          </span>
-        ))}
+        {text.groups.map((group, index) => {
+          return (
+            <TextSplit key={index} isBold={group.isBold} text={group.text} />
+          );
+        })}
       </div>
     </div>
+  );
+}
+
+const classes = [
+  "text-violet-500 hover:drop-shadow-[0_0_10px_violet]",
+  "text-violet-600 hover:drop-shadow-[0_0_10px_violet]",
+  "text-violet-700 hover:drop-shadow-[0_0_10px_violet]",
+];
+function BoldText({ children }: PropsWithChildren) {
+  const [currentClass, setCurrentClass] = useState(classes[0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentClass((prevClass) => {
+        const currentIndex = classes.indexOf(prevClass);
+        const nextIndex = (currentIndex + 1) % classes.length;
+        return classes[nextIndex];
+      });
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={clsx(currentClass, "transition-all ease-in-out duration-1000")}>{children}</span>
+  );
+}
+
+function TextSplit({ text, isBold }: { text: string; isBold: boolean }) {
+  return (
+    <>
+      {text.split("").map((char, index) => (
+        <span
+          key={index}
+          className="char transition-none whitespace-pre inline-block"
+        >
+          {isBold ? <BoldText>{char}</BoldText> : char}
+        </span>
+      ))}
+    </>
   );
 }
