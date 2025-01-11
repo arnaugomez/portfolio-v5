@@ -134,7 +134,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
       </div>
       <div
         ref={textRef}
-        className={cn(!showText && "opacity-0", "overflow-hidden")}
+        className={cn(!showText && "opacity-0", !showSecondaryText && "overflow-hidden")}
       >
         {text.groups.map((group, index) => {
           if (group.isBold) {
