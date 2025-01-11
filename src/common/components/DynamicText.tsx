@@ -13,7 +13,7 @@ export function DynamicText() {
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
-      const goal = window.innerHeight / (window.innerWidth < 640 ? 3 : 2);
+      const goal = window.innerHeight / 2;
 
       const children = Array.from(containerRef.current.children)
         .filter((child) => child.tagName === "SPAN")

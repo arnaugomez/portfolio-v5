@@ -127,10 +127,10 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
           "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1"
         )}
       >
-        {plainText}
         <div className="absolute whitespace-nowrap left-full w-fit text-slate-200 px-1">
           {plainText}
         </div>
+        {plainText}
       </div>
       <div
         ref={textRef}
