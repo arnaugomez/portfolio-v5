@@ -1,3 +1,3 @@
 import clsx from "clsx/lite";
 
-export const cn = clsx
+export const cn = clsx;
