@@ -43,7 +43,7 @@ export function HideContent({ showContent, children }: HideContentProps) {
     if (ref.current) {
       setWidth(ref.current.offsetWidth);
     }
-  }, [children]);
+  }, []);
 
   return (
     <div
