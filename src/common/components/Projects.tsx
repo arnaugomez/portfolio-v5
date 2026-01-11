@@ -25,7 +25,7 @@ export function Projects() {
               </h3>
               <p className="text-sm text-slate-600 mt-1">
                 Document tools for AI agents. Build Cursor-like editors for any
-                document with streaming, navigation, and editing methods.
+                rich text document, with user review and streaming built-in.
               </p>
             </div>
           </a>
