@@ -1,9 +1,9 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
-import { useState, useRef, useEffect } from "react";
 
 const text =
-  "Hi, I am Arnau, a software developer from Barcelona.# For the past 6 years, I have helped large companies like Amazon # build modern web and mobile apps that perform at scale.# My focus is on TypeScript and React,# with an emphasis on performance, QA and scalability.# I am currently working on AI engineering and agents with LangChain.";
+  "I am Arnau, a software engineer at Tiptap (YC S23). #For the past 6 years, I have helped companies like Amazon integrate AI into their web and mobile aplications.# My focus is on TypeScript, React and PyTorch, with an emphasis on performance, QA and scalability. #At Tiptap, I'm building the AI Toolkit, a platform where AI can work with documents on complex tasks.";
 const split = text.split("#");
 
 export function DynamicText() {
@@ -34,7 +34,7 @@ export function DynamicText() {
 
   return (
     <div className="text-slate-400 flex-1 min-w-0 text-3xl sm:text-4xl font-bold">
-      <div className="relative max-w-2xl" ref={containerRef}>
+      <div className="relative max-w-xl" ref={containerRef}>
         <div className="hidden xl:block absolute pl-12 -top-4 left-full text-9xl text-slate-300">
           &rdquo;
         </div>
@@ -42,7 +42,7 @@ export function DynamicText() {
           <span
             className={cn(
               index === selectedChild && "text-slate-700",
-              "transition-colors duration-500 ease-in-out"
+              "transition-colors duration-500 ease-in-out",
             )}
             key={index}
           >

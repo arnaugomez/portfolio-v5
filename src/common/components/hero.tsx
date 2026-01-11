@@ -1,14 +1,14 @@
 "use client";
 
+import gsap from "gsap";
 import {
-  useState,
-  useRef,
-  useEffect,
+  type PropsWithChildren,
   useCallback,
-  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 import { cn } from "@/utils/cn";
-import gsap from "gsap";
 
 function timeoutPromise(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -95,7 +95,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
         stagger: 0.05,
         duration: 0.5,
         ease: "power2.out",
-      }
+      },
     );
   }, [index]);
 
@@ -113,7 +113,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
       <div
         className={cn(
           showSecondaryText ? "opacity-100" : "opacity-0",
-          "absolute duration-1000 transition-opacity whitespace-nowrap right-full w-fit text-slate-200 px-1"
+          "absolute duration-1000 transition-opacity whitespace-nowrap right-full w-fit text-slate-200 px-1",
         )}
       >
         <div className="absolute whitespace-nowrap right-full w-fit text-slate-200 px-1">
@@ -124,7 +124,7 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
       <div
         className={cn(
           showSecondaryText ? "opacity-100" : "opacity-0",
-          "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1"
+          "absolute duration-1000 transition-opacity whitespace-nowrap left-full w-fit text-slate-200 px-1",
         )}
       >
         <div className="absolute whitespace-nowrap left-full w-fit text-slate-200 px-1">
@@ -134,7 +134,10 @@ function TextLine({ text, index, height, isReverse }: TextLineProps) {
       </div>
       <div
         ref={textRef}
-        className={cn(!showText && "opacity-0", !showSecondaryText && "overflow-hidden")}
+        className={cn(
+          !showText && "opacity-0",
+          !showSecondaryText && "overflow-hidden",
+        )}
       >
         {text.groups.map((group, index) => {
           if (group.isBold) {
