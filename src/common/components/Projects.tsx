@@ -36,12 +36,12 @@ export function Projects() {
         </div>
         <div className="mt-8">
           <a
-            href="https://www.linkedin.com/in/arnaugomez/details/projects/"
+            href="https://www.linkedin.com/in/arnaugomez/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-sm text-slate-500 hover:text-slate-700 hover:underline transition-colors"
           >
-            <span>View more projects</span>
+            <span>Other projects & work experience</span>
             <ArrowRightIcon className="size-4 ml-1" />
           </a>
         </div>
