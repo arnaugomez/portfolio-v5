@@ -11,7 +11,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "Arnau Gómez | Software Engineer | Web, Desktop & Mobile",
   description:
-    "For the past 6 years, I have helped large companies like Amazon build modern web and mobile apps that perform at scale. My focus is on TypeScript and React, with an emphasis on performance, QA and scalability. I am currently working on AI agents with LangChain.",
+    "I am Arnau, a software engineer at Tiptap (YC S23). For the past 6 years, I have helped companies like Amazon integrate AI into their web and mobile aplications. My focus is on TypeScript, React and PyTorch, with an emphasis on performance, QA and scalability. At Tiptap, I'm building the AI Toolkit, a platform where AI can work with documents on complex tasks.",
 };
 
 export default function RootLayout({
