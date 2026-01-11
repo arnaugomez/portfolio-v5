@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
 
 export function Projects() {
@@ -13,9 +14,12 @@ export function Projects() {
             className="block group"
           >
             <div className="overflow-hidden rounded-lg border border-slate-200 transition-all duration-300 hover:border-slate-300 hover:shadow-lg">
-              <img
+              <Image
                 src="/tiptap-ai-toolkit.jpg"
                 alt="Tiptap AI Toolkit - Document Tools for AI Agents"
+                width={1200}
+                height={630}
+                sizes="(max-width: 768px) 100vw, 672px"
                 className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </div>
