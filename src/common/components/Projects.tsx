@@ -6,7 +6,7 @@ export function Projects() {
     <div className="px-4 sm:px-8 overflow-hidden">
       <div className="max-w-screen-xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold mb-8">Projects</h2>
-        <div className="max-w-2xl">
+        <div className="grid gap-8 max-w-2xl">
           <a
             href="https://tiptap.dev/product/ai-toolkit"
             target="_blank"
@@ -30,6 +30,32 @@ export function Projects() {
               <p className="text-sm text-slate-600 mt-1">
                 Document tools for AI agents. Build Cursor-like editors for any
                 rich text document, with user review and streaming built-in.
+              </p>
+            </div>
+          </a>
+          <a
+            href="https://tiptap.dev/product/ai-toolkit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block group"
+          >
+            <div className="overflow-hidden rounded-lg border border-slate-200 transition-all duration-300 hover:border-slate-300 hover:shadow-lg">
+              <Image
+                src="/smart-diff.jpg"
+                alt="Smart Diff - Intelligent diff algorithm for rich text content"
+                width={1200}
+                height={891}
+                sizes="(max-width: 768px) 100vw, 672px"
+                className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="mt-3">
+              <h3 className="text-lg font-semibold text-slate-800 group-hover:text-slate-900">
+                Smart Diff
+              </h3>
+              <p className="text-sm text-slate-600 mt-1">
+                A diff algorithm for rich text content that intelligently adapts
+                to lists, tables and any structured content.
               </p>
             </div>
           </a>
